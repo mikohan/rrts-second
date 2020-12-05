@@ -5,7 +5,7 @@ export interface IFilterByName {
   payload: string;
 }
 
-export const filterAction = (filter: string): IFilterByName => {
+export const addFilterAction = (filter: string): IFilterByName => {
   return {
     type: ActionTypes.FILTER_BY_NAME,
     payload: filter,

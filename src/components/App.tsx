@@ -2,13 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ITodos, fetchTodos, deleteTodo } from '../redux/actions';
 import { IStoreState } from '../redux/reducers';
-import { filterAction } from '../redux/actions';
+import { addFilterAction } from '../redux/actions';
 
 interface IAppProps {
   todos: ITodos[];
   fetchTodos: Function;
   deleteTodo: typeof deleteTodo;
-  filterAction: typeof filterAction;
+  addFilterAction: typeof addFilterAction;
 }
 
 class _App extends React.Component<IAppProps> {
@@ -21,7 +21,7 @@ class _App extends React.Component<IAppProps> {
   };
 
   onFilter = (): void => {
-    this.props.filterAction('sorem');
+    this.props.addFilterAction('sorem');
   };
 
   render() {
@@ -61,5 +61,5 @@ const mapStateToProps = (state: IStoreState): { todos: ITodos[] } => {
 export default connect(mapStateToProps, {
   fetchTodos,
   deleteTodo,
-  filterAction,
+  addFilterAction,
 })(_App);
