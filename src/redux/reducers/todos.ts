@@ -2,11 +2,13 @@ import { ITodos, ActionTypes, Action } from '../actions';
 
 export const initState = {
   todos: [],
+  filtredTodos: [],
   appliedFilters: ['dol'],
 };
 
 export interface ITodosState {
   todos: ITodos[];
+  filtredTodos: ITodos[];
   appliedFilters: string[];
 }
 
@@ -16,7 +18,7 @@ export const todosReducer = (
 ): ITodosState => {
   switch (action.type) {
     case ActionTypes.FETCH_TODOS:
-      return { ...state, todos: action.payload };
+      return { ...state, todos: action.payload, filtredTodos: action.payload };
     case ActionTypes.DELETE_TODO:
       const deleted = state.todos.filter(
         (todo: ITodos) => todo.id !== action.payload
@@ -35,19 +37,17 @@ export const todosReducer = (
         let fs: ITodos[] = todos.filter((todo: ITodos) => {
           return todo.title.includes(el);
         });
-        console.log(fs);
         filtredTodos.push(...fs);
       });
 
-      return { ...state, todos: filtredTodos, appliedFilters: appliedFilters };
+      return {
+        ...state,
+        filtredTodos: filtredTodos,
+        appliedFilters: appliedFilters,
+      };
     case ActionTypes.REMOVE_FILTER:
-      let appliedFilters2: string[] = state.appliedFilters;
-      let filter = action.payload;
-      appliedFilters2 = removeFilter(filter, appliedFilters2);
-      let filtredTodos2 = state.todos.filter((todo: ITodos) => {
-        return !appliedFilters2.includes(todo.title);
-      });
-      return { ...state, todos: filtredTodos2 };
+      const allTodos: ITodos[] = state.todos;
+      return { ...state, filtredTodos: allTodos };
 
     default:
       return state;

@@ -32,7 +32,7 @@ class _App extends React.Component<IAppProps> {
 
   render() {
     const list = (): JSX.Element[] => {
-      return this.props.products.todos.map((todo: ITodos) => (
+      return this.props.products.filtredTodos.map((todo: ITodos) => (
         <li onClick={() => this.onClickTodo(todo.id)} key={todo.id}>
           {todo.title}
         </li>
@@ -47,6 +47,9 @@ class _App extends React.Component<IAppProps> {
         }}
       >
         <div style={{ width: '1000px' }}>
+          <div className="custom-button">
+            {this.props.products.filtredTodos.length}
+          </div>
           <div className="custom-button">
             <button onClick={this.onFilter}>Add Filter</button>
             <button onClick={this.onRemoveFilter}>Remove Filter</button>
