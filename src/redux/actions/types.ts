@@ -4,6 +4,7 @@ import {
   IFetchTodosAction,
   IDeleteAction,
   IFilterByName,
+  IRadioFilter,
 } from './index';
 
 export enum ActionTypes {
@@ -12,6 +13,7 @@ export enum ActionTypes {
   FILTER_BY_NAME = 'FILTER_BY_NAME',
   APPLY_FILTERS = 'APPLY_FILTERS',
   REMOVE_FILTER = 'REMOVE_FILTER',
+  RADIO_FILTER = 'RADIO_FILTER',
 }
 
 export type Action =
@@ -19,4 +21,5 @@ export type Action =
   | IFetchTodosAction
   | IDeleteAction
   | IFilterByName
-  | IRemoveFilter;
+  | IRemoveFilter
+  | IRadioFilter;
