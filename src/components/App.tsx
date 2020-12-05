@@ -2,16 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ITodos, fetchTodos, deleteTodo } from '../redux/actions';
 import { IStoreState } from '../redux/reducers';
-import { addFilterAction } from '../redux/actions';
+import { addFilterAction, filterThunk } from '../redux/actions';
 
 interface IAppProps {
   todos: ITodos[];
   fetchTodos: Function;
   deleteTodo: typeof deleteTodo;
   addFilterAction: typeof addFilterAction;
+  filterThunk: Function;
 }
 
 class _App extends React.Component<IAppProps> {
+  componentDidMount() {
+    console.log(this.props.filterThunk());
+  }
   onButtonClick = (): void => {
     this.props.fetchTodos();
   };
@@ -62,4 +66,5 @@ export default connect(mapStateToProps, {
   fetchTodos,
   deleteTodo,
   addFilterAction,
+  filterThunk,
 })(_App);

@@ -9,7 +9,7 @@ import { rootReducer } from './redux/reducers';
 
 import App from './components/App';
 
-const store = createStore(
+export const store = createStore(
   rootReducer,
   composeWithDevTools(
     applyMiddleware(thunk)
