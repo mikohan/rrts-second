@@ -1,16 +1,30 @@
 import { ITodos, ActionTypes, Action } from '../actions';
 
-export const initState = [];
+export const initState = {
+  todos: [],
+  appliedFilters: [],
+};
 
-export const todosReducer = (state = initState, action: Action): ITodos[] => {
+export interface ITodosState {
+  todos: ITodos[];
+  appliedFilters: string[];
+}
+
+export const todosReducer = (
+  state = initState,
+  action: Action
+): ITodosState => {
   switch (action.type) {
     case ActionTypes.FETCH_TODOS:
-      return action.payload;
+      return { ...state, todos: action.payload };
     case ActionTypes.DELETE_TODO:
-      const deleted = state.filter(
+      const deleted = state.todos.filter(
         (todo: ITodos) => todo.id !== action.payload
       );
-      return deleted;
+
+      return { ...state, todos: deleted };
+    case ActionTypes.FILTER_BY_NAME:
+      return { ...state, appliedFilters: ['some', 'strings'] };
     default:
       return state;
   }

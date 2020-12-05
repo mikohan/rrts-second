@@ -5,7 +5,7 @@ import { IStoreState } from '../redux/reducers';
 import { addFilterAction, filterThunk } from '../redux/actions';
 
 interface IAppProps {
-  todos: ITodos[];
+  products: any;
   fetchTodos: Function;
   deleteTodo: typeof deleteTodo;
   addFilterAction: typeof addFilterAction;
@@ -30,7 +30,7 @@ class _App extends React.Component<IAppProps> {
 
   render() {
     const list = (): JSX.Element[] => {
-      return this.props.todos.map((todo: ITodos) => (
+      return this.props.products.todos.map((todo: ITodos) => (
         <li onClick={() => this.onClickTodo(todo.id)} key={todo.id}>
           {todo.title}
         </li>
@@ -56,9 +56,9 @@ class _App extends React.Component<IAppProps> {
   }
 }
 
-const mapStateToProps = (state: IStoreState): { todos: ITodos[] } => {
+const mapStateToProps = (state: any) => {
   return {
-    todos: state.todos,
+    products: state.products,
   };
 };
 
