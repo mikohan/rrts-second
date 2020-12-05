@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ITodos, fetchTodos, deleteTodo } from '../redux/actions';
 import { IStoreState } from '../redux/reducers';
-import { addFilterAction, filterThunk } from '../redux/actions';
+import { addFilterAction, filterThunk, removeFilter } from '../redux/actions';
+import '../styles.scss';
 
 interface IAppProps {
   products: any;
@@ -10,6 +11,7 @@ interface IAppProps {
   deleteTodo: typeof deleteTodo;
   addFilterAction: typeof addFilterAction;
   filterThunk: Function;
+  removeFilter: typeof removeFilter;
 }
 
 class _App extends React.Component<IAppProps> {
@@ -23,6 +25,9 @@ class _App extends React.Component<IAppProps> {
 
   onFilter = (): void => {
     this.props.addFilterAction('delectus');
+  };
+  onRemoveFilter = (): void => {
+    this.props.removeFilter('delectus');
   };
 
   render() {
@@ -41,11 +46,14 @@ class _App extends React.Component<IAppProps> {
           paddingTop: '24px',
         }}
       >
-        <div>
-          <button onClick={this.onFilter}>Filter</button>
-        </div>
         <div style={{ width: '1000px' }}>
-          <button onClick={this.onButtonClick}>Fetch</button>
+          <div className="custom-button">
+            <button onClick={this.onFilter}>Add Filter</button>
+            <button onClick={this.onRemoveFilter}>Remove Filter</button>
+          </div>
+          <div className="custom-button">
+            <button onClick={this.onButtonClick}>Fetch</button>
+          </div>
           <ul>{list()}</ul>
         </div>
       </div>
@@ -64,4 +72,5 @@ export default connect(mapStateToProps, {
   deleteTodo,
   addFilterAction,
   filterThunk,
+  removeFilter,
 })(_App);

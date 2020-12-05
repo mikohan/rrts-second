@@ -11,9 +11,21 @@ export interface IFilterThunk {
   payload: string[];
 }
 
+export interface IRemoveFilter {
+  type: ActionTypes.REMOVE_FILTER;
+  payload: string;
+}
+
 export const addFilterAction = (filter: string): IFilterByName => {
   return {
     type: ActionTypes.FILTER_BY_NAME,
+    payload: filter,
+  };
+};
+
+export const removeFilter = (filter: string): IRemoveFilter => {
+  return {
+    type: ActionTypes.REMOVE_FILTER,
     payload: filter,
   };
 };
