@@ -41,6 +41,7 @@ class _App extends React.Component<IAppProps> {
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const payload = event.target.value === 'true' ? true : false;
     this.props.radioFilter(payload);
+    window.history.pushState({}, '', '/home');
   };
 
   filterBuilder = <K extends keyof ITodos>(key: K) => {
