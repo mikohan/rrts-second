@@ -1,8 +1,12 @@
-import React, { ReactEventHandler } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { ITodos, fetchTodos, deleteTodo } from '../redux/actions';
-import { IStoreState } from '../redux/reducers';
-import { addFilterAction, filterThunk, removeFilter } from '../redux/actions';
+import {
+  addFilterAction,
+  filterThunk,
+  removeFilter,
+  radioFilter,
+} from '../redux/actions';
 import '../styles.scss';
 
 interface IAppProps {
@@ -12,6 +16,7 @@ interface IAppProps {
   addFilterAction: typeof addFilterAction;
   filterThunk: Function;
   removeFilter: typeof removeFilter;
+  radioFilter: typeof radioFilter;
 }
 
 class _App extends React.Component<IAppProps> {
@@ -34,8 +39,8 @@ class _App extends React.Component<IAppProps> {
   };
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // this.props.checkedFilter(event.target.value);
-    console.log(event.target.value);
+    const payload = event.target.value === 'true' ? true : false;
+    this.props.radioFilter(payload);
   };
 
   filterBuilder = <K extends keyof ITodos>(key: K) => {
@@ -47,7 +52,6 @@ class _App extends React.Component<IAppProps> {
   };
 
   render() {
-    console.log(this.filterBuilder('completed'));
     const list = (): JSX.Element[] => {
       return this.props.products.filtredTodos.map((todo: ITodos) => (
         <li onClick={() => this.onClickTodo(todo.id)} key={todo.id}>
@@ -108,4 +112,5 @@ export default connect(mapStateToProps, {
   addFilterAction,
   filterThunk,
   removeFilter,
+  radioFilter,
 })(_App);

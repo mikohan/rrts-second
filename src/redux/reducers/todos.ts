@@ -20,11 +20,18 @@ export const todosReducer = (
     case ActionTypes.FETCH_TODOS:
       return { ...state, todos: action.payload, filtredTodos: action.payload };
     case ActionTypes.DELETE_TODO:
-      const deleted = state.todos.filter(
+      const deleted: ITodos[] = state.todos.filter(
         (todo: ITodos) => todo.id !== action.payload
       );
+      console.log(deleted);
+      const deletedObj = state.filtredTodos.splice(
+        state.filtredTodos.findIndex((i: ITodos) => i.id === action.payload)
+      );
 
-      return { ...state, todos: deleted };
+      return {
+        ...state,
+        filtredTodos: deletedObj,
+      };
     case ActionTypes.FILTER_BY_NAME:
       let appliedFilters: string[] = state.appliedFilters;
       let value = action.payload;
@@ -48,6 +55,11 @@ export const todosReducer = (
     case ActionTypes.REMOVE_FILTER:
       const allTodos: ITodos[] = state.todos;
       return { ...state, filtredTodos: allTodos };
+    case ActionTypes.RADIO_FILTER:
+      let filtredRadioTodos = state.todos.filter((todo: ITodos) => {
+        return todo.completed === action.payload;
+      });
+      return { ...state, filtredTodos: filtredRadioTodos };
 
     default:
       return state;
