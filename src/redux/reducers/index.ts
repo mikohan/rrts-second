@@ -1,10 +1,9 @@
 import { combineReducers } from 'redux';
-import { ITodos } from '../actions';
 import { filterReducer } from './filters';
 import { todosReducer } from './todos';
 
 export interface IStoreState {
-  todos: ITodos[];
+  todos: any;
   filter: any;
 }
 

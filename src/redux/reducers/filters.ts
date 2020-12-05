@@ -1,15 +1,12 @@
-import { Action } from 'redux';
-import { IStoreState } from '.';
-import { ActionTypes, ITodos } from '../actions';
+import { Action } from '../actions';
+import { ActionTypes } from '../actions';
 
-const initialState = {
-  appliedFilters: [],
-};
+const initState: string[] = [];
 
-export const filterReducer = (state: IStoreState, action: Action) => {
+export const filterReducer = (state = initState, action: Action) => {
   switch (action.type) {
     case ActionTypes.FILTER_BY_NAME:
-      return 'some';
+      return ['lorem', 'ipsum'];
     default:
       return state;
   }
