@@ -30,11 +30,24 @@ export const todosReducer = (
         appliedFilters = addFilterIfNotExists(value, appliedFilters);
       }
       let todos = state.todos;
-      const filtredTodos = todos.filter((todo: ITodos) => {
-        return todo.title.toLowerCase().includes(value);
+      let filtredTodos: ITodos[] = [];
+      appliedFilters.forEach((el: string) => {
+        let fs: ITodos[] = todos.filter((todo: ITodos) => {
+          return todo.title.includes(el);
+        });
+        filtredTodos.push(fs);
       });
 
       return { ...state, todos: filtredTodos, appliedFilters: appliedFilters };
+    case ActionTypes.REMOVE_FILTER:
+      let appliedFilters2: string[] = state.appliedFilters;
+      let filter = action.payload;
+      appliedFilters2 = removeFilter(filter, appliedFilters2);
+      let filtredTodos2 = state.todos.filter((todo: ITodos) => {
+        return !appliedFilters2.includes(todo.title);
+      });
+      return { ...state, todos: filtredTodos2 };
+
     default:
       return state;
   }
