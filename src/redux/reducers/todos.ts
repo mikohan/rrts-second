@@ -20,10 +20,6 @@ export const todosReducer = (
     case ActionTypes.FETCH_TODOS:
       return { ...state, todos: action.payload, filtredTodos: action.payload };
     case ActionTypes.DELETE_TODO:
-      const deleted: ITodos[] = state.todos.filter(
-        (todo: ITodos) => todo.id !== action.payload
-      );
-      console.log(deleted);
       const deletedObj = state.filtredTodos.splice(
         state.filtredTodos.findIndex((i: ITodos) => i.id === action.payload)
       );
@@ -70,11 +66,5 @@ export const todosReducer = (
 function addFilterIfNotExists(filter: string, appliedFilters: string[]) {
   let index = appliedFilters.indexOf(filter);
   if (index === -1) appliedFilters.push(filter);
-  return appliedFilters;
-}
-
-function removeFilter(filter: string, appliedFilters: string[]): string[] {
-  let index = appliedFilters.indexOf(filter);
-  appliedFilters.splice(index, 1);
   return appliedFilters;
 }
