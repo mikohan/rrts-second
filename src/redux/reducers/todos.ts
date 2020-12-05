@@ -2,7 +2,7 @@ import { ITodos, ActionTypes, Action } from '../actions';
 
 export const initState = {
   todos: [],
-  appliedFilters: [],
+  appliedFilters: ['dol'],
 };
 
 export interface ITodosState {
@@ -30,12 +30,13 @@ export const todosReducer = (
         appliedFilters = addFilterIfNotExists(value, appliedFilters);
       }
       let todos = state.todos;
-      let filtredTodos: ITodos[] = [];
+      let filtredTodos: any = [];
       appliedFilters.forEach((el: string) => {
         let fs: ITodos[] = todos.filter((todo: ITodos) => {
           return todo.title.includes(el);
         });
-        filtredTodos.push(fs);
+        console.log(fs);
+        filtredTodos.push(...fs);
       });
 
       return { ...state, todos: filtredTodos, appliedFilters: appliedFilters };
