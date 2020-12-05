@@ -24,8 +24,31 @@ export const todosReducer = (
 
       return { ...state, todos: deleted };
     case ActionTypes.FILTER_BY_NAME:
-      return { ...state, appliedFilters: ['some', 'strings'] };
+      let appliedFilters: string[] = state.appliedFilters;
+      let value = action.payload;
+      if (value) {
+        appliedFilters = addFilterIfNotExists(value, appliedFilters);
+      }
+      let todos = state.todos;
+      const filtredTodos = todos.filter((todo: ITodos) => {
+        return todo.title.toLowerCase().includes(value);
+      });
+
+      return { ...state, todos: filtredTodos, appliedFilters: appliedFilters };
     default:
       return state;
   }
 };
+
+// helpers need to be refactored later
+function addFilterIfNotExists(filter: string, appliedFilters: string[]) {
+  let index = appliedFilters.indexOf(filter);
+  if (index === -1) appliedFilters.push(filter);
+  return appliedFilters;
+}
+
+function removeFilter(filter: string, appliedFilters: string[]): string[] {
+  let index = appliedFilters.indexOf(filter);
+  appliedFilters.splice(index, 1);
+  return appliedFilters;
+}

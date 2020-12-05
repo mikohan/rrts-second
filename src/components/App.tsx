@@ -13,9 +13,6 @@ interface IAppProps {
 }
 
 class _App extends React.Component<IAppProps> {
-  componentDidMount() {
-    console.log(this.props.filterThunk());
-  }
   onButtonClick = (): void => {
     this.props.fetchTodos();
   };
@@ -25,7 +22,7 @@ class _App extends React.Component<IAppProps> {
   };
 
   onFilter = (): void => {
-    this.props.addFilterAction('sorem');
+    this.props.addFilterAction('delectus');
   };
 
   render() {
